@@ -1,6 +1,10 @@
 %{
 %}
+
 %%
+
+
+
 
 [[a-zA-Z]+[[\d]{*}|[a-zA-Z]{*}]] {
 																		return IDENTIFIER;
@@ -10,7 +14,7 @@
 						return LETTER;
 				 }
 
-[0-9] {
+[0-9]+ {
 				return DIGIT;
 			}
 
@@ -26,7 +30,7 @@
 [\d]+ {
 				return INTEGER;
 			}
-* {
+[.] {
 		return CHAR;
   }
 %%
