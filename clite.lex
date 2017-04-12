@@ -1,12 +1,11 @@
 %{
+#include "y.tab.h"
 %}
 
 %%
 
 
-
-
-[[a-zA-Z]+[[\d]{*}|[a-zA-Z]{*}]] {
+[a-zA-Z]+[[\d]*|[a-zA-Z]*] {
 																		return IDENTIFIER;
 																 }
 
@@ -16,11 +15,8 @@
 
 [0-9]+ {
 				return DIGIT;
-			}
+		   	}
 
-[[\d]+ | [true|false] | [\d]+ \. [\d]+ | *] {
-																							return LITERAL;
-																						}
 [[\d]+ \. [\d]+] {
 										return FLOAT;
 								 }
