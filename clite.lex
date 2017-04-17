@@ -1,5 +1,5 @@
 %{
-#include "y.tab.h"
+
 %}
 
 
@@ -9,48 +9,31 @@ LETTER, DIGIT, FLOAT, BOOLEAN, INTEGER, CHAR
 %%
 
 
-{DIGIT}+				{	printf("An Integer: %s (%d)\n", yytext, atoi(yytext));
+{DIGIT}+				{	printf("An Integer- %s (%d)\n", yytext, atoi(yytext));
 						
 						}
 
-{DIGIT}+"."{DIGIT}*		{	printf( "A Float: %s (%g)\n", yytext, atof( yytext ) );
+{DIGIT}+"."{DIGIT}*		{	printf( "A Float- %s (%g)\n", yytext, atof( yytext ) );
 
 						}
 
 
+"//".*\n				{ 	printf("Inline-comment- %s\n", yytext);
+	
 
+						}
 
+"/*".*"*/"				{	printf("Open-multiline-comment\nClose-multiline-comment");
+						}
 
+"+"|"-"|"*"|"/"   		printf( "An operator: %s\n", yytext );
 
-if|then|int|float|bool|char {	printf("A keyword: %s\n", yytext);
+if|then|"int"|float|bool|char {	printf("A keyword: %s\n", yytext);
 	
 							}
 
-{ID}					{printf( "An identifier: %s\n", yytext );
-						}
+{ID}						{printf( "An identifier: %s\n", yytext );
+							}
 
-[a-zA-Z]+[[\d]*|[a-zA-Z]*] {
-																		return IDENTIFIER;
-																 }
 
-[a-zA-Z] {
-						return LETTER;
-				 }
-
-[0-9]+ {
-				return DIGIT;
-		   	}
-
-[[\d]+ \. [\d]+] {
-										return FLOAT;
-								 }
-[true|false] {
-								return BOOLEAN;
-						 }
-[\d]+ {
-				return INTEGER;
-			}
-[.] {
-		return CHAR;
-  }
 %%
