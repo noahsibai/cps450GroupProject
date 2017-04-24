@@ -16,16 +16,17 @@ LETTER, DIGIT, FLOAT, BOOLEAN, INTEGER, CHAR
 {DIGIT}+"."{DIGIT}*		{	printf( "Float-%s\n", yytext);
 
 						}
+" \+ "|" \- "|" \* "|" \/ "   		{printf( "Operator-%s\n", yytext );}
 
-" "?["/*"]\n?(.*?(\n)).*?"*/"\n$				{	printf("Open-multiline-comment\nClose-multiline-comment\n");
+["/\*"]\n?(.*?(\n)).*?"*/"\n$				{	printf("Open-multiline-comment\nClose-multiline-comment\n");
 						}
 
-" "?"//"(.*?)				{ 	printf("Inline-comment-%s\n", yytext);
+"//"(.*?)				{ 	printf("Inline-comment-%s\n", yytext);
 	
 
 						}
 
-\+|\-|\*|\/   		printf( "Operator-%s\n", yytext );
+
 
 
 " = "					{ printf("Assignment\n");
@@ -48,7 +49,7 @@ LETTER, DIGIT, FLOAT, BOOLEAN, INTEGER, CHAR
 	
 						}
 
-"<" | "<=" | ">" | ">="	{ printf("Comparison-%s\n", yytext);
+" < " | " <= " | " > " | " >= "	{ printf("Comparison-%s\n", yytext);
 	
 						}
 
