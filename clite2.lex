@@ -9,35 +9,58 @@ LETTER, DIGIT, FLOAT, BOOLEAN, INTEGER, CHAR
 %%
 
 
-{DIGIT}+				{	printf("An Integer- %s (%d)\n", yytext, atoi(yytext));
+{DIGIT}+				{	printf("Integer-%s\n", yytext);
 						
 						}
 
-{DIGIT}+"."{DIGIT}*		{	printf( "A Float- %s (%g)\n", yytext, atof( yytext ) );
+{DIGIT}+"."{DIGIT}*		{	printf( "Float-%s\n", yytext);
 
 						}
 
+" "?["/*"]\n?(.*?(\n)).*?"*/"\n$				{	printf("Open-multiline-comment\nClose-multiline-comment\n");
+						}
 
-"//".*\n				{ 	printf("Inline-comment- %s\n", yytext);
+" "?"//"(.*?)				{ 	printf("Inline-comment-%s\n", yytext);
 	
 
 						}
 
-" + "|" - "|" * "|" / "   		printf( "An operator: %s\n", yytext );
+\+|\-|\*|\/   		printf( "Operator-%s\n", yytext );
 
-^"/*"(.*?(\n))+.*?"*/"$				{	printf("Open-multiline-comment\nClose-multiline-comment");
+
+" = "					{ printf("Assignment\n");
+
+						}
+
+";"						{ printf("Semicolon\n");
+	
+						}
+"("						{ printf("Open-paren\n");
+	
+						}
+")"						{ printf("Close-paren\n");
+	
+						}
+"{"						{ printf("Open-bracket\n");
+	
+						}
+"}"						{ printf("Close-bracket\n");
+	
+						}
+
+"<" | "<=" | ">" | ">="	{ printf("Comparison-%s\n", yytext);
+	
 						}
 
 
-
-if|then|"int"|float|bool|char {	printf("A keyword: %s\n", yytext);
+if|then|"int"|float|bool|char {	printf("Keyword-%s\n", yytext);
 	
 							}
 
-{ID}						{printf( "An identifier: %s\n", yytext );
+{ID}						{printf( "Identifier-%s\n", yytext );
 							}
 
-"(" printf("Open-paren");
-")" printf("Close-paren");
+[ \t\n]+          /* eat up whitespace */
+	
 
 %%
