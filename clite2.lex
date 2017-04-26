@@ -10,6 +10,7 @@ LETTER, DIGIT, FLOAT, BOOLEAN, INTEGER, CHAR
 "true"|"false" { printf("Boolean-%s\n", yytext);}
 "=="|"!=" { printf("EquOp-%s\n", yytext);}
 "||" { printf("Conjunction-%s\n", yytext);}
+"&&" { printf("Equality-%s\n", yytext);}
 {DIGIT}+				{	printf("Integer-%s\n", yytext);}
 {DIGIT}+"."{DIGIT}*		{	printf( "Float-%s\n", yytext);}
 "/*"     { /* ignore multiline comments. */
@@ -38,7 +39,7 @@ LETTER, DIGIT, FLOAT, BOOLEAN, INTEGER, CHAR
 		   printf("Close-multiline-comment\n");
          }
 " "?"//"(.*?)				{ 	printf("Inline-comment-%s\n", yytext);}
-\+|\-|\*|\/   		{printf( "Operator-%s\n", yytext );}
+\+|\-|\*|\/|%   		{printf( "Operator-%s\n", yytext );}
 " = "					{ printf("Assignment\n");}
 ";"						{ printf("Semicolon\n");}
 "("						{ printf("Open-paren\n");}
@@ -46,7 +47,7 @@ LETTER, DIGIT, FLOAT, BOOLEAN, INTEGER, CHAR
 "{"						{ printf("Open-bracket\n");}
 "}"						{ printf("Close-bracket\n");}
 "<"|"<="|">"|">="	{ printf("Comparison-%s\n", yytext);}
-if|then|"int"|float|bool|char {	printf("Keyword-%s\n", yytext);}
+if|then|"int"|float|bool|char|else|catch {	printf("Keyword-%s\n", yytext);}
 {ID}						{printf( "Identifier-%s\n", yytext );}
 [ \t\n]+          /* eat up whitespace */
 
